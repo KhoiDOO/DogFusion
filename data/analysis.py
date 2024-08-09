@@ -1,7 +1,8 @@
 from glob import glob
-import PIL.Image
 from tqdm import tqdm
+from ds import DogDS
 
+import PIL.Image
 import xml.etree.ElementTree as ET
 import scipy.io as sio
 import PIL
@@ -31,17 +32,50 @@ if __name__ == '__main__':
     # print(tree)
     # print(root.find('object').find('bndbox').find('xmin').text)
 
-    imgs = glob(os.path.join(ds_dir, 'Images/*/*'))
+    # imgs = glob(os.path.join(ds_dir, 'Images/*/*'))
 
-    Hs, Ws = [], []
+    # Hs, Ws = [], []
 
-    for img in tqdm(imgs):
-        x = PIL.Image.open(img)
+    # for img in tqdm(imgs):
+    #     x = PIL.Image.open(img)
 
-        H, W = x.size
+    #     H, W = x.size
 
-        Hs.append(H)
-        Ws.append(W)
+    #     Hs.append(H)
+    #     Ws.append(W)
     
-    print(f'Hmax: {max(Hs)} - Wmax: {max(Ws)}')
-    print(f'Hmin: {min(Hs)} - Wmin: {min(Ws)}')
+    # print(f'Hmax: {max(Hs)} - Wmax: {max(Ws)}')
+    # print(f'Hmin: {min(Hs)} - Wmin: {min(Ws)}')
+
+    # ds = DogDS(root=ds_dir)
+
+    # dct = {}
+
+    # for idx in tqdm(range(len(ds))):
+    #     _, lbl = ds[idx]
+
+    #     if lbl in dct:
+    #         dct[lbl] += 1
+    #     else:
+    #         dct[lbl] = 0
+    
+    # print(dct.keys())
+
+    # dct = {}
+
+    # ds = DogDS(root=ds_dir)
+
+    # for idx in tqdm(range(len(ds))):
+    #     img, lbl, path = ds[idx]
+    
+    #     C, _, _ = img.shape
+
+    #     if C in dct:
+    #         dct[C] += 1
+    #     else:
+    #         dct[C] = 1
+        
+    #     if C == 4:
+    #         print(path)
+    
+    # print(dct)
