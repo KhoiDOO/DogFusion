@@ -1,3 +1,4 @@
+export CUDA_VISIBLE_DEVICES=1
 python main.py \
     --root /media/mountHDD3/data_storage/standford_dog \
     --size 128 --batch_size 32 --shuffle --num_workers 12 --pin_memory --horflip \
@@ -10,7 +11,7 @@ python main.py \
     --mode cfg --gradient_accumulate_every 2 --train_lr 1e-4 --train_num_steps 100000 --ema_update_every 10 \
     --ema_decay 0.995 --adam_betas 0.9 0.99 --save_and_sample_every 1000 --amp --mixed_precision_type fp16 \
     --split_batches --calculate_fid --inception_block_idx 2048 --max_grad_norm 1.0 \
-    --num_fid_samples 50 --save_best_and_latest_only \
+    --num_fid_samples 120 --save_best_and_latest_only \
     \
     --wandb \
     --wandb_project dogfusion

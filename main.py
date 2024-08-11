@@ -7,7 +7,7 @@ import os
 
 if __name__ == '__main__':
     # Create the parser
-    parser = argparse.ArgumentParser(description="PyTorch DataLoader with Augmentation, Diffusion, U-Net, Training, and Weights & Biases Parameters")
+    parser = argparse.ArgumentParser(description="DogFusion")
 
     # Add basic arguments
     parser.add_argument('--root', type=str, help='Root directory where data is located')

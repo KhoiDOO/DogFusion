@@ -19,6 +19,7 @@ class CFGFIDEvaluation(FIDEvaluation):
                  device="cuda", 
                  num_fid_samples=50000, 
                  inception_block_idx=2048):
+        assert num_fid_samples >= batch_size, 'the number of sample taken into account for FID must be larger than batch size'
         super().__init__(batch_size, dl, sampler, channels, accelerator, stats_dir, device, num_fid_samples, inception_block_idx)
     
     def load_or_precalc_dataset_stats(self):
@@ -58,12 +59,14 @@ class CFGFIDEvaluation(FIDEvaluation):
 
         classes = torch.randint(0, 120, (self.n_samples, )).to(self.device)
 
-        batches = num_to_groups(self.n_samples, self.batch_size)
+        batch_size = self.n_samples if self.n_samples < self.batch_size else self.batch_size
+
+        batches = num_to_groups(self.n_samples, batch_size)
 
         stacked_fake_features = []
         self.print_fn(f"Stacking Inception features for {self.n_samples} generated samples.")
         for idx in tqdm(range(len(batches))):
-            fake_samples = self.sampler.sample(classes[idx*self.batch_size:(idx+1)*self.batch_size])
+            fake_samples = self.sampler.sample(classes[idx*batch_size:(idx+1)*batch_size])
             fake_features = self.calculate_inception_features(fake_samples)
             stacked_fake_features.append(fake_features)
         stacked_fake_features = torch.cat(stacked_fake_features, dim=0).cpu().numpy()

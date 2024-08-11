@@ -202,10 +202,11 @@ class Trainer:
 
                             num_samples = classes.shape[0]
 
-                            batches = num_to_groups(num_samples, self.batch_size)
-                            # all_images_list = list(map(lambda n: self.ema.ema_model.sample(batch_size=n), batches))
+                            batch_size = num_samples if num_samples < self.batch_size else self.batch_size
 
-                            all_images_list = [self.ema.ema_model.sample(classes[n*self.batch_size:(n+1)*self.batch_size]) for n in range(len(batches))]
+                            batches = num_to_groups(num_samples, batch_size)
+
+                            all_images_list = [self.ema.ema_model.sample(classes[n*batch_size:(n+1)*batch_size]) for n in range(len(batches))]
 
                         all_images = torch.cat(all_images_list, dim = 0)
 
