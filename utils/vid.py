@@ -2,9 +2,7 @@ from glob import glob
 from tqdm import tqdm
 from PIL import Image  
 
-import imageio.v3 as iio
 import argparse
-import zipfile
 import cv2
 import os
 
@@ -27,8 +25,8 @@ if __name__ == '__main__':
 
     video = cv2.VideoWriter(vid_path, 0, 1, (width, height)) 
 
-    for img in tqdm(imgs):
-        video.write(iio.imread(img))  
+    for idx in tqdm(range(len(imgs))):
+        video.write(cv2.imread(os.path.join(runs_dir, f'sample-{idx+1}.png')))
 
-    cv2.destroyAllWindows() 
+    cv2.destroyAllWindows()
     video.release()
